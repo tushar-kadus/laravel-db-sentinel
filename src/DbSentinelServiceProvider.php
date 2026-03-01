@@ -2,8 +2,10 @@
 
 namespace Atmos\DbSentinel;
 
+use Atmos\DbSentinel\Console\Commands\PruneLogsCommand;
 use Atmos\DbSentinel\Http\Middleware\AuthorizeSentinel;
 use Illuminate\Database\Events\QueryExecuted;
+use Illuminate\Console\Scheduling\Schedule;
 use Atmos\DbSentinel\Facades\DbSentinel;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Log;
@@ -35,8 +37,10 @@ class DbSentinelServiceProvider extends ServiceProvider
             return;
         }
 
-        // Setup Publishing (only for CLI)
         if ($this->app->runningInConsole()) {
+            $this->registerCommands();
+            $this->configureScheduling();
+            // Setup Publishing (only for CLI)
             $this->offerPublishing();
         }
 
@@ -80,9 +84,34 @@ class DbSentinelServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register the package's artisan commands.
+     */
+    protected function registerCommands(): void
+    {
+        $this->commands([
+            PruneLogsCommand::class,
+        ]);
+    }
+
+    /**
+     * Configure the automatic scheduling for pruning.
+     */
+    protected function configureScheduling(): void
+    {
+        $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
+            if (config('db-sentinel.scheduling.enabled', true)) {
+                $schedule->command('db-sentinel:prune')
+                    ->daily()
+                    ->onOneServer() // Prevents duplicates on multi-server setups
+                    ->withoutOverlapping(); // Prevents a second run if the first is still going
+            }
+        });
+    }
+
+    /**
      * Setup the resource publishing for the artisan vendor:publish command.
      */
-    private function offerPublishing()
+    private function offerPublishing(): void
     {
         // Publish Config
         $this->publishes([

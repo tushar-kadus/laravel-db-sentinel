@@ -90,6 +90,7 @@ DB Sentinel is designed to work out of the box, but you can customize its behavi
 | `DB_SENTINEL_CONNECTION` | DB connection to store the DB Sentinel logs (e.g., `mysql`). | Your application's default database connection |
 | `DB_SENTINEL_LOGS_TABLE` | The name of the table for stored logs. | `sentinel_logs` |
 | `DB_SENTINEL_PRUNE_DAYS` | Auto-delete logs older than X days. | `30` |
+| `DB_SENTINEL_SCHEDULE_ENABLED` | Auto-schedule pruning command. | `true` |
 
 ### ⚡ Performance & Scope
 | Variable | Description | Default |
@@ -113,6 +114,7 @@ DB Sentinel is designed to work out of the box, but you can customize its behavi
 # Core Settings
 DB_SENTINEL_ENABLED=true
 DB_SENTINEL_PRUNE_DAYS=14
+DB_SENTINEL_SCHEDULE_ENABLED=true
 
 # Storage & Connection
 DB_SENTINEL_LOGS_TABLE=custom_sentinel_logs
@@ -138,3 +140,33 @@ When configuring your monitoring scope, please note the following hierarchy:
 > This variable controls who can view your database performance metrics and raw SQL queries. 
 > * Ensure you only input the **numeric IDs** of trusted administrators.
 > * If left empty while `DB_SENTINEL_DASHBOARD` is `true`, access will depend solely on your `auth` middleware, which may be too permissive depending on your app's setup.
+
+### 🧹 Pruning
+#### Auto-Pruning
+By default, DB Sentinel schedules a daily cleanup of old logs. 
+
+##### Configuration
+You can control this behavior in your `.env`:
+
+```bash
+# How many days to keep logs
+DB_SENTINEL_PRUNE_DAYS=30
+
+# Enable/Disable the automatic daily background task
+DB_SENTINEL_SCHEDULE_ENABLED=true
+```
+> [!TIP]
+> If you set DB_SENTINEL_SCHEDULE_ENABLED=false, the package will not register the task. You can
+> then manually add php artisan db-sentinel:prune to your own Scheduler at a specific time that
+> suits your server load.
+
+#### 🧹 Manual Pruning
+
+If you want to clear old logs immediately without waiting for the automated scheduler, you can run the built-in Artisan command.
+
+##### Usage
+Run the following command in your terminal:
+
+```bash
+php artisan db-sentinel:prune
+```
