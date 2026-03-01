@@ -1,6 +1,5 @@
 {
     "name": "atmos/laravel-db-sentinel",
-    "version": "1.0.0",
     "description": "Smart database query monitoring and optimization tool for Laravel 7+.",
     "keywords": [
         "laravel",
