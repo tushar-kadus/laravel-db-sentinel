@@ -2,17 +2,21 @@
 
 namespace Atmos\DbSentinel\Jobs;
 
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Atmos\DbSentinel\Services\QueryExplainer;
 use Atmos\DbSentinel\Services\QueryAnalyzer;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Foundation\Bus\Dispatchable;
 use Atmos\DbSentinel\Models\SentinelLog;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Bus\Queueable;
 use Throwable;
 
 class AnalyzeQueryJob implements ShouldQueue
 {
-    use Queueable;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * The ID of the log record to analyze.
