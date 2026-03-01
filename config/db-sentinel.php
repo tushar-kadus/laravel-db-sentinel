@@ -36,15 +36,13 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Performance & Queuing
+    | Queuing
     |--------------------------------------------------------------------------
     |
-    | 'threshold': Log any query slower than this (in milliseconds).
     | 'queue_name': The queue pipe to use for background analysis jobs.
     |
     */
 
-    'threshold' => env('DB_SENTINEL_THRESHOLD', 500),
     'queue_name' => env('DB_SENTINEL_QUEUE_NAME', 'default'),
 
     /*
