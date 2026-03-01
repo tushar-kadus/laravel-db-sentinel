@@ -31,7 +31,6 @@ return [
         'connection' => env('DB_SENTINEL_CONNECTION', env('DB_CONNECTION', 'mysql')),
         'table_name' => env('DB_SENTINEL_LOGS_TABLE', 'sentinel_logs'),
         'prune_after_days' => env('DB_SENTINEL_PRUNE_DAYS', 30),
-        'max_sql_length' => env('DB_SENTINEL_MAX_SQL', 5000),
     ],
 
     /*

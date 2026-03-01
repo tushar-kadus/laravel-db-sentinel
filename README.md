@@ -90,7 +90,6 @@ DB Sentinel is designed to work out of the box, but you can customize its behavi
 | `DB_SENTINEL_CONNECTION` | DB connection to store the DB Sentinel logs (e.g., `mysql`). | Your application's default database connection |
 | `DB_SENTINEL_LOGS_TABLE` | The name of the table for stored logs. | `sentinel_logs` |
 | `DB_SENTINEL_PRUNE_DAYS` | Auto-delete logs older than X days. | `30` |
-| `DB_SENTINEL_MAX_SQL` | Truncate SQL queries longer than X chars. | `5000` |
 
 ### ⚡ Performance & Scope
 | Variable | Description | Default |
