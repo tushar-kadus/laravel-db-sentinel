@@ -1,0 +1,24 @@
+# Dependencies
+/vendor
+composer.lock
+
+# Testing & Cache
+.phpunit.result.cache
+.phpunit.cache
+/.phpunit.cache/
+/tests/_output
+/tests/_support/_generated
+/build
+
+# IDE & OS Files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+
+# Laravel/Package specific
+.env
+.env.backup
+/storage/*.log
+/public/storage

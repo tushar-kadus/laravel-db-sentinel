@@ -1,0 +1,66 @@
+{
+    "name": "atmos/laravel-db-sentinel",
+    "version": "1.0.0",
+    "description": "Smart database query monitoring and optimization tool for Laravel 7+.",
+    "keywords": [
+        "laravel",
+        "database",
+        "query-monitor",
+        "sql-analyzer",
+        "performance",
+        "optimization"
+    ],
+    "homepage": "https://github.com/tushar-kadus/laravel-db-sentinel",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Tushar Kadus",
+            "email": "tusharkadus99@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0|^8.0",
+        "illuminate/support": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
+        "illuminate/database": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
+        "illuminate/pipeline": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
+        "illuminate/bus": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
+        "illuminate/queue": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^5.0|^6.0|^7.0|^8.0|^9.0",
+        "phpunit/phpunit": "^9.0|^10.0",
+        "mockery/mockery": "^1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Atmos\\DbSentinel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Atmos\\DbSentinel\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Atmos\\DbSentinel\\DbSentinelServiceProvider"
+            ],
+            "aliases": {
+                "DbSentinel": "Atmos\\DbSentinel\\Facades\\DbSentinel"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
